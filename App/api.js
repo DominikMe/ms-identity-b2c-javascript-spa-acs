@@ -1,4 +1,4 @@
-function callApi(endpoint, token) {
+function callApi(endpoint, token, idTokenClaims) {
     
     const headers = new Headers();
     const bearer = `Bearer ${token}`;
@@ -10,14 +10,15 @@ function callApi(endpoint, token) {
         headers: headers
       };
   
-    logMessage('Calling web API...');
+    logMessage('Getting ACS token...');
     
     fetch(endpoint, options)
       .then(response => response.json())
       .then(response => {
 
         if (response) {
-          logMessage('Web API responded: ' + response.name);
+          logMessage('Received token for user ' + response.acsUserId);
+          joinCall(response.acsUserId, response.acsUserToken, idTokenClaims);
         }
         
         return response;

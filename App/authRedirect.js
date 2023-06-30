@@ -135,7 +135,9 @@ function getTokenRedirect(request) {
                 throw new msal.InteractionRequiredAuthError;
             } else {
                 console.log("access_token acquired at: " + new Date().toString());
-                accessToken = response.accessToken;
+                // AAD B2C is for undocumented reasons not returning the access token, many on the internet have the same unresolved issue
+                // so as a workaround we just use the id token to swap for an ACS token
+                accessToken = response.accessToken || response.idToken;
                 passTokenToApi();
             }
         }).catch(error => {

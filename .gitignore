@@ -105,3 +105,5 @@ dist
 
 # NPM Package files
 package-lock.json
+
+config.js

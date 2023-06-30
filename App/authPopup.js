@@ -144,7 +144,7 @@ function passTokenToApi() {
             if (response) {
                 console.log("access_token acquired at: " + new Date().toString());
                 try {
-                    callApi(apiConfig.webApi, response.accessToken);
+                    callApi(apiConfig.webApi, response.accessToken, response.idTokenClaims);
                 } catch (error) {
                     console.log(error);
                 }
