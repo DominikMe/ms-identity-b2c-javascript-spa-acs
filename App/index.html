@@ -14,29 +14,31 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="/">Azure AD B2C</a>
+      <a class="navbar-brand" href="/">Azure AD B2C ❤️ ACS</a>
       <div class="btn-group ml-auto dropleft">
+        <span id="userName" style="color:white;margin-right: 1rem;margin-top: 0.5rem;"></span>
         <button type="button" id="editProfileButton" class="btn btn-secondary d-none" onclick="editProfile()">Edit Profile</button>
         <button type="button" id="signIn" class="btn btn-secondary" onclick="signIn()">Sign-in</button>
         <button type="button" id="signOut" class="btn btn-success d-none" onclick="signOut()">Sign-out</button>
       </div>
     </nav>
-    <br>
-    <h5 id="welcome-div" class="card-header text-center d-none"></h5>
-    <br>
     <!-- Content -->
-    <div class="card">
-      <h5 class="card-header text-center">Get an AAD B2C token, exchange it for an ACS token and join a Teams meeting</h5>
-      <div class="card-body text-center">
+    <div id="content" class="d-none">
         <div>
-          <input id="teamsJoinUrl" size=100 placeholder="Teams meeting join URL" class="d-none"/>
+          <label for="teamsJoinUrl">Teams join url:</label>
+          <input id="teamsJoinUrl" size=80 placeholder="Teams meeting join URL"/>
         </div>
-        <pre id="response" class="card-text"></pre>
-        <button type="button" id="callApiButton" class="btn btn-primary d-none" onclick="passTokenToApi()">Join Meeting</button>
+        <div>
+          <label for="openIn">Open in:</label>
+          <select id="openIn">
+            <option value="acs">ACS CallComposite</option>
+            <option value="teams">TeamsWeb</option>
+          <select>
+        </div>
+        <pre id="response"></pre>
+        <button type="button" id="callApiButton" class="btn btn-primary" onclick="passTokenToApi()">Join Meeting</button>
       </div>
-      <div id="acsContainer" style="height: 70vh">
-
-      </div>
+      <div id="callContainer" style="height: 70vh"></div>
     </div>
 
     <!-- importing bootstrap.js and supporting js libraries -->

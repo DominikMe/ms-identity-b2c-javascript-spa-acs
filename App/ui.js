@@ -1,25 +1,25 @@
 // Select DOM elements to work with
 const signInButton = document.getElementById('signIn');
 const signOutButton = document.getElementById('signOut')
-const welcomeDiv = document.getElementById('welcome-div');
+const userName = document.getElementById('userName');
+const content = document.getElementById('content');
 const tableDiv = document.getElementById('table-div');
 const tableBody = document.getElementById('table-body-div');
 const editProfileButton = document.getElementById('editProfileButton');
 const callApiButton = document.getElementById('callApiButton');
 const response = document.getElementById("response");
 const meetingUrl = document.getElementById('teamsJoinUrl');
-const acsContainer = document.getElementById('acsContainer');
+const callContainer = document.getElementById('callContainer');
+const openIn = document.getElementById('openIn');
 
 function welcomeUser(username) {
-    welcomeDiv.innerHTML = `Welcome ${username}!`
+    userName.innerText = username;
 
     signInButton.classList.add('d-none');
 
+    content.classList.remove('d-none');
     signOutButton.classList.remove('d-none');
     editProfileButton.classList.remove('d-none');
-    welcomeDiv.classList.remove('d-none');
-    callApiButton.classList.remove('d-none');
-    meetingUrl.classList.remove('d-none');
 }
 
 function logMessage(s) {
@@ -28,14 +28,22 @@ function logMessage(s) {
 
 function joinCall(acsUserId, acsToken, idTokenClaims) {
     const meetingLink = meetingUrl.value;
-    callComposite.loadCallComposite(
-    {
-        locator: { meetingLink },
-        displayName: idTokenClaims.given_name + " " + idTokenClaims.family_name,
-        userId: { communicationUserId: acsUserId },
-        token: acsToken
-    },
-    acsContainer, // container element
-    {} // Optional, Object contains all optional props for composite, check composite page for more details
-    );
+    const app = openIn.selectedOptions[0].value;
+    switch (app) {
+        case "acs": 
+            callComposite.loadCallComposite(
+            {
+                locator: { meetingLink },
+                displayName: idTokenClaims.given_name + " " + idTokenClaims.family_name,
+                userId: { communicationUserId: acsUserId },
+                token: acsToken
+            },
+            callContainer,
+            {} // Optional, Object contains all optional props for composite, check composite page for more details
+            );
+            break;
+        case "teams":
+            window.open(meetingLink, '_blank').focus();
+            break;
+    }
 }

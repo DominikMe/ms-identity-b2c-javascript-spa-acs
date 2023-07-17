@@ -11,7 +11,7 @@ function callApi(endpoint, token, idTokenClaims) {
       };
   
     logMessage('Getting ACS token...');
-    
+  
     fetch(endpoint, options)
       .then(response => response.json())
       .then(response => {

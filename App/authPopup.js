@@ -8,7 +8,7 @@ let username = "";
 function setAccount(account) {
     accountId = account.homeAccountId;
     username = account.username;
-    welcomeUser(username);
+    welcomeUser(`${account.idTokenClaims.given_name} ${account.idTokenClaims.family_name}`);
 }
 
 function selectAccount() {
